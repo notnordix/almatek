@@ -1,0 +1,425 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: var(--font-roboto);
+  --primary: #0f75bc;
+  --foreground: #333333;
+  --background: #ffffff;
+  --muted: #f5f5f5;
+  --radius: 0.5rem; /* Added this line for border radius */
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overscroll-behavior: none; /* Prevent overscrolling/bouncing effect */
+  -webkit-overflow-scrolling: auto; /* For iOS support */
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-poppins font-bold;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+}
+
+/* Section Title Container */
+.section-title-container {
+  @apply flex flex-col items-center justify-center;
+}
+
+/* Section Title - Update to make it bolder, remove background and border, add animated underline */
+.section-title {
+  @apply text-2xl md:text-3xl font-extrabold text-primary capitalize font-poppins;
+  position: relative;
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Remove the previous border animations */
+.section-title::before,
+.section-title::after {
+  content: none;
+}
+
+/* Add new underline that animates from the middle */
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 4px;
+  background: var(--primary);
+  transform: translateX(-50%);
+  transition: width 0.5s ease;
+}
+
+/* Animation when the section is in view */
+.section-title.in-view::after {
+  width: 80%;
+  animation: underline-animation 2s ease-in-out infinite;
+}
+
+@keyframes underline-animation {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 80%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+/* Remove the decoration since we're using a new style */
+.section-title-decoration {
+  @apply hidden;
+}
+
+/* Animation for progress circle */
+@keyframes progress-animation {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 3D Gallery Styles */
+.perspective-1500 {
+  perspective: 1500px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion) {
+  .gallery {
+    transition: none !important;
+  }
+
+  .gallery-item {
+    transition: none !important;
+  }
+}
+
+/* Add these animation keyframes and classes */
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInBottom {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animation parent container */
+.animate-parent .animate-from-left,
+.animate-parent .animate-from-bottom,
+.animate-parent .animate-from-right {
+  opacity: 0;
+  animation-duration: 0.6s;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* easeOutQuad */
+}
+
+/* Animation classes that will be applied when parent has animate-visible class */
+.animate-parent.animate-visible .animate-from-left {
+  animation-name: fadeInLeft;
+}
+
+.animate-parent.animate-visible .animate-from-bottom {
+  animation-name: fadeInBottom;
+}
+
+.animate-parent.animate-visible .animate-from-right {
+  animation-name: fadeInRight;
+}
+
+/* Optimized Competences Animations */
+.animate-parent {
+  position: relative;
+}
+
+.animate-parent:not(.animate-visible) .animate-from-left,
+.animate-parent:not(.animate-visible) .animate-from-bottom,
+.animate-parent:not(.animate-visible) .animate-from-right {
+  opacity: 0;
+  transform: translateZ(0);
+}
+
+.animate-parent.animate-visible .animate-from-left,
+.animate-parent.animate-visible .animate-from-bottom,
+.animate-parent.animate-visible .animate-from-right {
+  animation-duration: 0.6s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* easeOutQuad */
+}
+
+.animate-parent.animate-visible .animate-from-left {
+  animation-name: slide-in-left;
+}
+
+.animate-parent.animate-visible .animate-from-bottom {
+  animation-name: slide-in-bottom;
+}
+
+.animate-parent.animate-visible .animate-from-right {
+  animation-name: slide-in-right;
+}
+
+@keyframes slide-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px) translateZ(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+  }
+}
+
+@keyframes slide-in-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) translateZ(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    opacity: 0;
+    transform: translateX(30px) translateZ(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+  }
+}
+
+/* Scroll Animation Utilities */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s ease forwards;
+}
+
+.animate-fade-down {
+  animation: fade-down 0.8s ease forwards;
+}
+
+.animate-fade-left {
+  animation: fade-left 0.8s ease forwards;
+}
+
+.animate-fade-right {
+  animation: fade-right 0.8s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease forwards;
+}
+
+.animate-delay-100 {
+  animation-delay: 0.1s;
+}
+
+.animate-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animate-delay-300 {
+  animation-delay: 0.3s;
+}
+
+.animate-delay-400 {
+  animation-delay: 0.4s;
+}
+
+.animate-delay-500 {
+  animation-delay: 0.5s;
+}
+
+/* Optimize hover transitions */
+.transform {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* Optimize transitions for project cards */
+.transition-all.duration-150 {
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+/* Smooth scroll animations for services section */
+.service-text-animation {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.service-text-animation.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered animation delays */
+.delay-100 {
+  transition-delay: 0.1s;
+}
+
+.delay-200 {
+  transition-delay: 0.2s;
+}
+
+.delay-300 {
+  transition-delay: 0.3s;
+}
+
+.delay-400 {
+  transition-delay: 0.4s;
+}
+
+/* Add these animation styles for the project cards at the end of the file */
+
+@keyframes card-hover {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.project-card-hover:hover {
+  animation: card-hover 0.5s ease-in-out;
+}
+
+/* Optimize image transitions */
+.image-transition {
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+/* Smooth category filter transitions */
+.category-filter-button {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
