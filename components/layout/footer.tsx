@@ -68,7 +68,7 @@ export default function Footer() {
           <motion.div className="space-y-6" variants={itemVariants}>
             <Link href="/" className="inline-block">
               <Image
-                src="https://www.almatek.fr/frontend/logo/logo.png"
+                src="/logo.png"
                 alt="ALMATEK"
                 width={150}
                 height={50}

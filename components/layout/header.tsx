@@ -128,7 +128,7 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" className="relative z-20 mr-4 flex items-center px-2 py-1">
           <Image
-            src="https://www.almatek.fr/frontend/logo/logo.png"
+            src="/logo.png"
             alt="ALMATEK"
             width={150}
             height={50}
@@ -260,7 +260,7 @@ export default function Header() {
           {/* Mobile Logo */}
           <Link href="/" className="flex items-center">
             <Image
-              src="https://www.almatek.fr/frontend/logo/logo.png"
+              src="/logo.png"
               alt="ALMATEK"
               width={120}
               height={40}
